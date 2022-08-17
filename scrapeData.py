@@ -1,3 +1,4 @@
+from msilib import CreateRecord
 import pandas as pd
 import urllib
 from bs4 import BeautifulSoup
@@ -7,6 +8,8 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import NoSuchElementException
+
 
 def getData(url: str):
     '''This function scrappes the company name, website, 
@@ -37,7 +40,7 @@ def getData(url: str):
 def createDriver(headless=True):
     chrome_options = Options()
     if headless:  # 👈 Optional condition to "hide" the browser window
-        chrome_options.headless = False
+        chrome_options.headless = True
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options) 
     # 👆  Creation of the "driver" that we're using to interact with the browser
@@ -46,31 +49,32 @@ def createDriver(headless=True):
     # 👆 How much time should Selenium wait until an element is able to interact
     return driver
 
-def getAddress(name_list:list, driver):
+def getAddress(name):
     ''' This function scrappes a company's address using Google search and maps
     '''
     query = urllib.parse.quote(' \' '+ name)   
     url = 'https://www.google.com/search?q='+query 
     addresses = []
-    for name in name_list:
-        try:    
-            driver.get(url)
-            driver.find_element(By.XPATH,'/html/body/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]').click();
-            address = driver.find_element(By.XPATH,'//*[contains(concat( " ", @class, " " ), concat( " ", "LrzXr", " " ))]').text
+    driver = createDriver()
+    try:    
+        driver.get(url)
+        driver.find_element(By.XPATH,'/html/body/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]').click();
+        address = driver.find_element(By.XPATH,'//*[contains(concat( " ", @class, " " ), concat( " ", "LrzXr", " " ))]').text
+        addresses.append(address)
+    except:    
+        address = ''
+        addresses.append(address)
+
+    if address == '':
+        url = 'https://www.google.com/maps/search/'+query    
+        try: 
+            driver.get(url)   
+            driver.find_element(By.XPATH,'//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/div[1]/form[2]/div/div/button').click();
+            address = driver.find_element(By.XPATH,'//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div[1]/div[2]/div[1]').text
             addresses.append(address)
-        except:    
+        except:
             address = ''
             addresses.append(address)
-
-        if address == '':
-            url = 'https://www.google.com/maps/search/'+query
-            driver.get(url)
-            driver.find_element(By.XPATH,'//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/div[1]/form[2]/div/div/button').click();
-            try:    
-                address = driver.find_element(By.XPATH,'//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div[1]/div[2]/div[1]').text
-                addresses.append(address)
-            except:
-                address = ''
-                addresses.append(address)
+           
 
     return addresses   
