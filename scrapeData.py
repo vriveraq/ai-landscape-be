@@ -13,7 +13,7 @@ def getData(url: str):
        and region of companies from the AI4Belgium wepage.
        Returns a DataFrame'''
     html_page = urllib.request.urlopen(url)
-    soup = BeautifulSoup(html_page)
+    soup = BeautifulSoup(html_page, features="html.parser")
     data = soup.findAll(attrs={"data-region": True})
     
     regions = []
@@ -46,28 +46,31 @@ def createDriver(headless=True):
     # 👆 How much time should Selenium wait until an element is able to interact
     return driver
 
-def getAddress(name:str):
+def getAddress(name_list:list, driver):
     ''' This function scrappes a company's address using Google search and maps
     '''
     query = urllib.parse.quote(' \' '+ name)   
-    driver = createDriver()  # Method defined in previous examples
     url = 'https://www.google.com/search?q='+query 
-    
-    try:    
-        driver.get(url)
-        driver.find_element(By.XPATH,'/html/body/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]').click();
-        address = driver.find_element(By.XPATH,'//*[contains(concat( " ", @class, " " ), concat( " ", "LrzXr", " " ))]').text
-    except:    
-        address = ''
+    addresses = []
+    for name in name_list:
+        try:    
+            driver.get(url)
+            driver.find_element(By.XPATH,'/html/body/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]').click();
+            address = driver.find_element(By.XPATH,'//*[contains(concat( " ", @class, " " ), concat( " ", "LrzXr", " " ))]').text
+            addresses.append(address)
+        except:    
+            address = ''
+            addresses.append(address)
 
-    if address == '':
-         url = 'https://www.google.com/maps/search/'+query
-         driver.get(url)
-         driver.find_element(By.XPATH,'//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/div[1]/form[2]/div/div/button').click();
-         try:    
-             address = driver.find_element(By.XPATH,'//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div[1]/div[2]/div[1]').text
-         except:
-             address = ''
-    driver.quit();
-    
-    return address   
+        if address == '':
+            url = 'https://www.google.com/maps/search/'+query
+            driver.get(url)
+            driver.find_element(By.XPATH,'//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[3]/div[1]/div[1]/form[2]/div/div/button').click();
+            try:    
+                address = driver.find_element(By.XPATH,'//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div[1]/div[2]/div[1]').text
+                addresses.append(address)
+            except:
+                address = ''
+                addresses.append(address)
+
+    return addresses   
