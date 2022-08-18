@@ -6,11 +6,17 @@ def main():
     st.title('Belgian AI Landscape')
     st.write('A list highlighting the companies focused on data science and artificial intelligence in Belgium.')
 
-    region = st.text_input('Region', "")
-    database = pd.read_csv('data/AI_Landscape_BE_complete.csv')
+    region = st.multiselect(
+     'Regions:',
+     ['Brussels', 'Flanders', 'Wallonia'],
+     ['Flanders'])
+
+    st.write('You selected:', region)
+
+    database = pd.read_csv('data\AI_Landscape_BE_completed.csv')
 
     if region != '':
-        df = database[database['Region'] == region]
+        df = database[database['Region'].isin(region)]
         st.dataframe(df)
   
 if __name__ == '__main__':
