@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from interactiveMap import get_location_interactive
 
 # Define app using completed dataset
 def main():
@@ -9,15 +10,26 @@ def main():
     region = st.multiselect(
      'Regions:',
      ['Brussels', 'Flanders', 'Wallonia'],
-     ['Flanders'])
+     ['Brussels', 'Flanders', 'Wallonia'])
 
-    st.write('You selected:', region)
-
-    database = pd.read_csv('data\AI_Landscape_BE_completed.csv')
+    database = pd.read_csv('data\AILandscape_geocoded.csv')
 
     if region != '':
         df = database[database['Region'].isin(region)]
+      
+        figure = get_location_interactive(df)
+        st.plotly_chart(figure)
         st.dataframe(df)
+
+        csv = df.to_csv().encode('utf-8')
+        st.download_button(
+                "Press to Download",
+                csv,
+                "file.csv",
+                "text/csv",
+                key='download-csv'
+                )
+
   
 if __name__ == '__main__':
     main()
