@@ -13,7 +13,7 @@ def main():
      ['Brussels', 'Flanders', 'Wallonia'],
      ['Brussels', 'Flanders', 'Wallonia'])
 
-    database = pd.read_csv('data\AILandscape_geocoded.csv')
+    database = pd.read_csv(r'data\AILandscape_geocoded.csv')
 
     if region != '':
         df = database[database['Region'].isin(region)]
