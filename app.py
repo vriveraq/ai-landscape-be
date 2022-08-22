@@ -12,7 +12,7 @@ def main():
      'Regions:',
      ['Brussels', 'Flanders', 'Wallonia'],
      ['Brussels', 'Flanders', 'Wallonia'])
-    filepath = os.path.join(os.path.dirname(__file__), "data\AILandscape_geocoded.csv")
+    filepath = os.path.join(os.path.dirname(__file__), "data/AILandscape_geocoded.csv")
     database = pd.read_csv(filepath)
 
     if region != '':
