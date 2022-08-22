@@ -12,8 +12,8 @@ def main():
      'Regions:',
      ['Brussels', 'Flanders', 'Wallonia'],
      ['Brussels', 'Flanders', 'Wallonia'])
-
-    database = pd.read_csv(r'data\AILandscape_geocoded.csv')
+    filepath = os.path.join(os.path.dirname(__file__), "data\AILandscape_geocoded.csv")
+    database = pd.read_csv(filepath)
 
     if region != '':
         df = database[database['Region'].isin(region)]
