@@ -1,18 +1,20 @@
 # Browsing the AI Landscape in Belgium
 
-In this project, we used the data available on the AI4Belgium website to build a dataset of the AI companies in the different regions of belgium.
+In this project, we used the data available on the AI4Belgium website to build a dataset of the AI companies in the different regions of Belgium. 
+
+The goal of this short project is to facilitate job seekers in finding AI companies close to their location. In particular, those who follow our AI training at [BeCode.org](www.becode.org). 
 
 # Pipeline
 
 1. Scrapping company name, website link, and region from AI4Belgium using BeautifulSoup
-2. Scrapping company addresses from Google Search using Selenium
-3. Visualize results in an interactive map
-4. Deploy on the web
+2. Scrapping company addresses from Google Search and Google Maps using Selenium
+3. Visualize results in an interactive map using Plotly
+4. Deploy on the web using Streamlit
 
 
-The goal of this short project is to facilitate job seekers in finding AI companies close to their location. Further improvements would be to include the sectors and industry information to narrow down the search results.
+ Further improvements would be to include the sectors and industry information to narrow down the search results.
 
-# Installation
+# Files
 
 
 # Usage
@@ -20,3 +22,4 @@ The goal of this short project is to facilitate job seekers in finding AI compan
 
 
 # Contributors
+Made by Vanessa Rivera Quinones and Louis de Viron.

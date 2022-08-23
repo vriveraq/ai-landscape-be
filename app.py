@@ -1,17 +1,18 @@
 import os
 import pandas as pd
 import streamlit as st
-from interactiveMap import get_location_interactive
+from scripts.interactiveMap import get_location_interactive
 
 # Define app using completed dataset
 def main():
     st.title('Belgian AI Landscape')
     st.write('A list highlighting the companies focused on data science and artificial intelligence in Belgium.')
-
+    st.markdown("![ai](https://lottiefiles.com/112425-ai-cpu-circuit-board-loading-animation)")
     region = st.multiselect(
      'Regions:',
      ['Brussels', 'Flanders', 'Wallonia'],
      ['Brussels', 'Flanders', 'Wallonia'])
+    
     filepath = os.path.join(os.path.dirname(__file__), "data/AILandscape_geocoded.csv")
     database = pd.read_csv(filepath)
 
