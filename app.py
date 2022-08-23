@@ -7,7 +7,7 @@ from scripts.interactiveMap import get_location_interactive
 def main():
     st.title('Belgian AI Landscape')
     st.write('A list highlighting the companies focused on data science and artificial intelligence in Belgium.')
-    st.markdown("![ai](https://lottiefiles.com/112425-ai-cpu-circuit-board-loading-animation)")
+    st.image("images/ai_animation.gif")
     region = st.multiselect(
      'Regions:',
      ['Brussels', 'Flanders', 'Wallonia'],
