@@ -19,7 +19,7 @@ def main():
     if city != '':
         df = database[database['City'].isin(region)]   
     elif region !='':
-        df = database[database['City'].isin(city)]  
+        df = database[database['Region'].isin(city)]  
     else:
         df = database
 
