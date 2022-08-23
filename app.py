@@ -11,20 +11,19 @@ def main():
     filepath = os.path.join(os.path.dirname(__file__), "data/AILandscape_geocoded.csv")
     database = pd.read_csv(filepath)
 
-    region = st.multiselect('Regions: ', options = database['Region'].unique().tolist(), default = ['Flanders']) 
-    city = st.multiselect('Cities: ', options = database['City'].unique().tolist(), default = ['Leuven'])
-    
-    if city != '':
-        df = database[database['City'].isin(region)]   
-    elif region !='':
-        df = database[database['Region'].isin(city)]  
+    region = st.multiselect('Regions: ', options = database['Region'].unique().tolist(), default = database['Region'].unique().tolist()) 
+    city = st.multiselect('Cities: ', options = database['City'].unique().tolist(), default = None)
+    print(region)
+    if city != None:
+        df = database[database['City'].isin(city)]   
     else:
-        df = database
-
-    figure = get_location_interactive(df)
-    st.plotly_chart(figure)
-    st.dataframe(df[['Company Name', 'Link', 'Region', 'Address']])
+        df = database[database['Region'].isin(region)]
+        print()  
     
+    
+    #figure = get_location_interactive(df)
+    #st.plotly_chart(figure)
+    st.dataframe(df[['Company Name', 'Link', 'Region', 'Address']])
     
     csv = df.to_csv().encode('utf-8')
     st.download_button(
