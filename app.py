@@ -11,10 +11,8 @@ def main():
     filepath = os.path.join(os.path.dirname(__file__), "data/AILandscape_geocoded.csv")
     database = pd.read_csv(filepath)
 
-    region = st.multiselect(
-     'Regions: ', options = database['Region'].unique().tolist(), default = ['Flanders'])
-    
-    city = st.multiselect( 'Cities: ', options = database['City'].unique().tolist(), default = ['Leuven'])
+    region = st.multiselect('Regions: ', options = database['Region'].unique().tolist(), default = ['Flanders']) 
+    city = st.multiselect('Cities: ', options = database['City'].unique().tolist(), default = ['Leuven'])
     
     if city != '':
         df = database[database['City'].isin(region)]   
