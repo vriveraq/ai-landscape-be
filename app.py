@@ -13,23 +13,22 @@ def main():
 
     region = st.multiselect('Regions: ', options = database['Region'].unique().tolist(), default = database['Region'].unique().tolist()) 
     city = st.multiselect('Cities: ', options = database['City'].unique().tolist(), default = None)
-    print(region)
-    if city != None:
+
+    
+    if city != []:
         df = database[database['City'].isin(city)]   
     else:
         df = database[database['Region'].isin(region)]
-        print()  
-    
-    
-    #figure = get_location_interactive(df)
-    #st.plotly_chart(figure)
+             
+    figure = get_location_interactive(df)
+    st.plotly_chart(figure)
     st.dataframe(df[['Company Name', 'Link', 'Region', 'Address']])
     
     csv = df.to_csv().encode('utf-8')
     st.download_button(
             "Press to Download",
             csv,
-            "file.csv",
+            "ai_be_file.csv",
             "text/csv",
             key='download-csv'
             )
