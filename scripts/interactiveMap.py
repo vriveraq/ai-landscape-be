@@ -16,13 +16,13 @@ def get_location_interactive(df, mapbox_style="open-street-map"):
         df,
         lat=df.Latitude,
         lon=df.Longitude,
-        custom_data= [df['Company Name'], df['Link'] , df['Address']],
+        custom_data= [df['Company Name'], df['Link'] , df['Street'], df['ZipCode'], df['City']],
         color='Region',
         color_continuous_scale=["green", 'blue', 'red', 'gold'],
         zoom=11.5,
         height=700,
-        title='AI Landscape',
-        opacity=.5,
+        title='AI Landscape Belgium',
+        opacity=.75,
         center={
             'lat': df.Latitude.mode()[0],
             'lon': df.Longitude.mode()[0]
@@ -32,8 +32,9 @@ def get_location_interactive(df, mapbox_style="open-street-map"):
     fig.update_traces(
     hovertemplate="<br>".join([
         "Name: %{customdata[0]}",
-        "Website: %{customdata[1]}",
+        "Website: <a href=\"%{customdata[1]}\", style=\"color:#ffffff\"> %{customdata[1]} </a>",
         "Address: %{customdata[2]}",
+        "City: %{customdata[3]}, %{customdata[4]}",
     ])
 )
    
