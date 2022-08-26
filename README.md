@@ -12,14 +12,14 @@ The goal of this short project is to facilitate job seekers in finding AI compan
 4. Deploy on the web using Streamlit
 
 
- Further improvements would be to include the sectors and industry information to narrow down the search results.
+# Further Improvements
 
-# Files
+* Further improvements would be to include the sectors and industry information to narrow down the search results. 
+* Some companies have multiple locations which are unaccounted for.
+* Include companies listed in other websites such as IMEC Start.
 
-
-# Usage
-
-
+# Last Revised
+August 26, 2022.
 
 # Contributors
 Made by Vanessa Rivera Quinones and Louis de Viron.
