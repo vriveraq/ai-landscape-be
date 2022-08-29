@@ -10,9 +10,9 @@ def main():
 
     filepath = os.path.join(os.path.dirname(__file__), "data/AILandscape_geocoded.csv")
     database = pd.read_csv(filepath)
-
-    region = st.multiselect('Regions: ', options = database['Region'].unique().tolist().sort(), default = database['Region'].unique().tolist()) 
-    city = st.multiselect('Cities: ', options = database['City'].unique().tolist().sort(), default = None)
+    
+    region = st.multiselect('Regions: ', options = database['Region'].sort_values().unique(), default = database['Region'].sort_values().unique()) 
+    city = st.multiselect('Cities: ', options = database['City'].sort_values().unique(), default = None)
 
     
     if city != []:
@@ -22,7 +22,7 @@ def main():
              
     figure = get_location_interactive(df)
     st.plotly_chart(figure)
-    st.dataframe(df[['Company Name', 'Link', 'Region', 'Address']].sort_values(by=['Company Name']))
+    st.dataframe(df[['Company Name', 'Link', 'Region', 'Address']].sort_values(by=['Company Name', 'Region']))
     
     csv = df.to_csv().encode('utf-8')
     st.download_button(
