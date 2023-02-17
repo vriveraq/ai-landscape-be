@@ -8,7 +8,7 @@ def main():
     st.title('Belgian AI Landscape')
     st.write('A list highlighting the companies focused on data science and artificial intelligence in Belgium.')
 
-    filepath = os.path.join(os.path.dirname(__file__) + "data/AILandscape_geocoded.csv")
+    filepath =  "data/AILandscape_geocoded.csv"
     database = pd.read_csv(filepath)
     
     region = st.multiselect('Regions: ', options = database['Region'].sort_values().unique(), default = database['Region'].sort_values().unique()) 
