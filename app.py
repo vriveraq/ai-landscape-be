@@ -33,5 +33,8 @@ def main():
             key='download-csv'
             )
   
+
+    link = '[GitHub source code](https://github.com/vriveraq/ai-landscape-be)'
+    st.markdown(link, unsafe_allow_html=True)
 if __name__ == '__main__':
     main()
