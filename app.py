@@ -32,34 +32,6 @@ def main():
             "text/csv",
             key='download-csv'
             )
-    if st.button('Add Your Own Entry'):
-        company_name = st.text_input(
-        "Company Name 👇",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
-        )
-
-        link = st.text_input(
-        "Website 🔗",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,  
-        )
-
-        region = st.text_input(
-        "Region ",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
-        )
-
-        address = st.text_input(
-        "Address 🏠",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
-        )
   
 if __name__ == '__main__':
     main()
