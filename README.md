@@ -9,7 +9,7 @@ The goal of this short project is to facilitate job seekers (in particular, thos
 1. First, we scrape company name, website link, and region from AI4Belgium using BeautifulSoup. We save the data as a CSV file. 
 2. Then, we find and scrape company addresses from Google Search and Google Maps using Selenium. 
 3. We use the addresses to geocode the locations using the OpenStreeMap API and visualize results in an interactive map using Plotly.
-4. Finally, we deploy on the web using Streamlit.
+4. Finally, we deploy on the web using Streamlit. You can navigate to the app using this link: [https://ai-landscape-be.streamlit.app/](https://ai-landscape-be.streamlit.app/).
 
 Note: For some companies, we couldn't scrape the address we manually imputed the data. 
 
