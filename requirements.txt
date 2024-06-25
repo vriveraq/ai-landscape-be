@@ -1,5 +1,5 @@
 beautifulsoup4==4.11.1
-pandas==1.4.3
+pandas
 plotly==5.10.0
 selenium==4.4.3
 streamlit==1.12.0
