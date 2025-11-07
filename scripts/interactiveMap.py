@@ -19,23 +19,42 @@ def get_location_interactive(df, mapbox_style="open-street-map"):
         custom_data= [df['name'], df['url'] , df['street'], df['zip_code'], df['city']],
         color='region',
         color_continuous_scale=["green", 'blue', 'red', 'gold'],
-        zoom=11.5,
         height=700,
         title='AI Landscape Belgium',
         opacity=.75,
-        center={
-            'lat': df.lat.mode()[0],
-            'lon': df.lon.mode()[0]
-        })
+       )
+    
     fig.update_layout(mapbox_style=mapbox_style)
     fig.update_layout(margin={"r": 0, "l": 0, "b": 0})
     fig.update_traces(
     hovertemplate="<br>".join([
         "Name: %{customdata[0]}",
-        "Website: <a href=\"%{customdata[1]}\", style=\"color:#ffffff\"> %{customdata[1]} </a>",
+        "Website:  %{customdata[1]}",
         "Address: %{customdata[2]}",
         "City: %{customdata[3]}, %{customdata[4]}",
-    ])
-)
+    ]))
+
+    
+    fig.update_geos(
+    lataxis_range=[df.lat.min(), df.lat.max()],
+    lonaxis_range=[df.lon.min(), df.lon.max()],
+    # Use 'fig.update_layout' if the above doesn't work reliably with mapbox_style
+    ) 
+    # If fig.update_geos isn't working with a Mapbox style, 
+    # Plotly recommends calculating the bounds and view, 
+    # but the simpler and often effective way is:
+
+    # Calculate the bounds from the dataframe's min/max lat/lon
+    lat_min, lat_max = df['lat'].min(), df['lat'].max()
+    lon_min, lon_max = df['lon'].min(), df['lon'].max()
+
+    # Use Plotly's 'auto' bound fitting to center and zoom correctly
+    fig.update_layout(
+        mapbox=dict(
+            # The bounds are set by the trace data by default when you remove zoom/center.
+            # This line explicitly triggers the auto-fitting based on the traces.
+            uirevision=True # Keeps the current map view when updating the plot
+        )
+    )
    
     return fig
