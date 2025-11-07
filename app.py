@@ -25,7 +25,7 @@ def main():
         figure = get_location_interactive(df)
         st.plotly_chart(figure)
         st.markdown(df[['name', 'url', 'region', 'address']].sort_values(by=['name', 'region']).to_html(render_links=True),unsafe_allow_html=True)
-        csv = df.to_csv().encode('utf-8')
+        csv = df.to_csv(index=False).encode('utf-8')
         st.download_button(
                 "Press to Download",
                 csv,
