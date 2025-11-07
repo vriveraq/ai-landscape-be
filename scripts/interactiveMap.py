@@ -38,16 +38,8 @@ def get_location_interactive(df, mapbox_style="open-street-map"):
     fig.update_geos(
     lataxis_range=[df.lat.min(), df.lat.max()],
     lonaxis_range=[df.lon.min(), df.lon.max()],
-    # Use 'fig.update_layout' if the above doesn't work reliably with mapbox_style
     ) 
-    # If fig.update_geos isn't working with a Mapbox style, 
-    # Plotly recommends calculating the bounds and view, 
-    # but the simpler and often effective way is:
-
-    # Calculate the bounds from the dataframe's min/max lat/lon
-    lat_min, lat_max = df['lat'].min(), df['lat'].max()
-    lon_min, lon_max = df['lon'].min(), df['lon'].max()
-
+    
     # Use Plotly's 'auto' bound fitting to center and zoom correctly
     fig.update_layout(
         mapbox=dict(

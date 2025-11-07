@@ -14,21 +14,26 @@ def main():
     region = st.multiselect('Regions: ', options = database['region'].sort_values().unique(), default = database['region'].sort_values().unique()) 
     city = st.multiselect('Cities: ', options = database['city'].sort_values().unique(), default = None)
 
-    try:
-        
+    try:  
         if city != []:
             df = database[database['city'].isin(city)]   
         else:
             df = database[database['region'].isin(region)]
     
-        st.write(f'Records found:{len(df)}')     
+        st.write(f'Records found: {len(df)}')     
         figure = get_location_interactive(df)
         st.plotly_chart(figure)
-        st.markdown(df[['name', 'url', 'region', 'address']].sort_values(by=['name', 'region']).to_html(render_links=True),unsafe_allow_html=True)
+        st.dataframe(df[['name', 'url', 'address', 'region']].sort_values(by=['name', 'region']), 
+                     column_config={
+                            "name": "company name",
+                            "url": st.column_config.LinkColumn("website"),                
+                        },
+                     
+                     hide_index= True)
         csv = df.to_csv(index=False).encode('utf-8')
         st.download_button(
                 "Press to Download",
-                csv,
+                csv ,
                 "ai_be_file.csv",
                 "text/csv",
                 key='download-csv'
