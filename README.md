@@ -51,5 +51,4 @@ Note: Companies with no available information in CBE website where excluded from
 ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)
  Let's connect: https://www.linkedin.com/in/vriveraq/
 
- ## Last Revised
-November 05, 2025
+#### Last Revised: November 05, 2025

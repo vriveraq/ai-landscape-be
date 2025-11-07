@@ -15,13 +15,13 @@ def main():
     city = st.multiselect('Cities: ', options = database['city'].sort_values().unique(), default = None)
 
     try:
+        
         if city != []:
             df = database[database['city'].isin(city)]   
         else:
             df = database[database['region'].isin(region)]
     
-
-             
+        st.write(f'Records found:{len(df)}')     
         figure = get_location_interactive(df)
         st.plotly_chart(figure)
         st.markdown(df[['name', 'url', 'region', 'address']].sort_values(by=['name', 'region']).to_html(render_links=True),unsafe_allow_html=True)
