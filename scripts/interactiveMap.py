@@ -14,18 +14,18 @@ def get_location_interactive(df, mapbox_style="open-street-map"):
     """
     fig = px.scatter_mapbox(
         df,
-        lat=df.Latitude,
-        lon=df.Longitude,
-        custom_data= [df['Company Name'], df['Link'] , df['Street'], df['ZipCode'], df['City']],
-        color='Region',
+        lat=df.lat,
+        lon=df.lon,
+        custom_data= [df['name'], df['url'] , df['street'], df['zip_code'], df['city']],
+        color='region',
         color_continuous_scale=["green", 'blue', 'red', 'gold'],
         zoom=11.5,
         height=700,
         title='AI Landscape Belgium',
         opacity=.75,
         center={
-            'lat': df.Latitude.mode()[0],
-            'lon': df.Longitude.mode()[0]
+            'lat': df.lat.mode()[0],
+            'lon': df.lon.mode()[0]
         })
     fig.update_layout(mapbox_style=mapbox_style)
     fig.update_layout(margin={"r": 0, "l": 0, "b": 0})
